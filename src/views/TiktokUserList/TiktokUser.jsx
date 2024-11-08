@@ -312,18 +312,20 @@ const SearchTableView = props => {
                 <div className='base-style'>
                     <SearchBar changeSearch={changeSearch} loading={loading} />
                 </div>
-
-                <div
-                    style={{
-                        display: 'flex',
-                        fontSize: '25px'
-                    }}>
-                    <div>总用户数：{all}</div>
-                    <div>今日新增：{todayAdd}</div>
-                </div>
                 <Row>
                     <Col span={24}>
                         <div className='base-style'>
+                            <div
+                                style={{
+                                    display: 'flex',
+                                    fontSize: '20px',
+                                    marginBottom: '10px'
+                                }}>
+                                <div>总用户数：{all}</div>
+                                <div style={{ width: '20px' }}></div>
+                                <div>今日新增：{todayAdd}</div>
+                            </div>
+
                             <Table
                                 columns={columns(deleteById)}
                                 rowKey={record => record.key}
