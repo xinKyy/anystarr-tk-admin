@@ -32,7 +32,7 @@ import { UploadOutlined, FormOutlined, CloudDownloadOutlined, SearchOutlined } f
 import webhost from '@/tools/webhost.js'
 import Aset from '@/imgs/aset1.png'
 import { getYearMonthDayTimeNew, getCleanedParams } from '@/tools/help.js'
-import { APIDeleteByUid, APIGetTikTokUserList } from '../../mapi'
+import { APIDeleteByUid, APIGetTikTokUserList, APIGetTikTokUserSumInfo } from '../../mapi'
 const { MonthPicker, RangePicker } = DatePicker
 const { Option } = Select
 
@@ -222,6 +222,8 @@ const SearchTableView = props => {
         downloadUserUrl: ''
     })
     const [loading, setLoading] = useState(false)
+    const [all, setAll] = useState(0)
+    const [todayAdd, setTodayAdd] = useState(0)
 
     const [pageI, setPageI] = useState({
         current: 1,
@@ -231,6 +233,7 @@ const SearchTableView = props => {
 
     useEffect(() => {
         getList(1, 20)
+        getUser()
     }, [])
 
     const getList = (page, pageSize, searchValue) => {
@@ -248,7 +251,7 @@ const SearchTableView = props => {
                     setDataSource(resp.data.result.records)
                     setPageI({
                         page: resp.data.result.current,
-                        pageSize: 20,
+                        pageSize: pageSize,
                         total: resp.data.result.total
                     })
                 }
@@ -256,6 +259,15 @@ const SearchTableView = props => {
             .finally(() => {
                 setLoading(false)
             })
+    }
+
+    const getUser = () => {
+        APIGetTikTokUserSumInfo().then(resp => {
+            if (resp.data.result) {
+                setAll(resp.data.result.all)
+                setTodayAdd(resp.data.result.today)
+            }
+        })
     }
 
     const deleteById = uid => {
@@ -283,10 +295,10 @@ const SearchTableView = props => {
         setState({
             ...state,
             search: {
-              ...search
+                ...search
             }
         })
-        getList(1, state.pagination.pageSize, search)
+        getList(1, pageI.pageSize, search)
     }
 
     return (
@@ -299,6 +311,15 @@ const SearchTableView = props => {
             <div className='base-wr'>
                 <div className='base-style'>
                     <SearchBar changeSearch={changeSearch} loading={loading} />
+                </div>
+
+                <div
+                    style={{
+                        display: 'flex',
+                        fontSize: '25px'
+                    }}>
+                    <div>总用户数：{all}</div>
+                    <div>今日新增：{todayAdd}</div>
                 </div>
                 <Row>
                     <Col span={24}>
