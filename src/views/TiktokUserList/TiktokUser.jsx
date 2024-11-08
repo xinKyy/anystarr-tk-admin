@@ -296,7 +296,7 @@ const SearchTableView = props => {
             </div>
             <div className='base-wr'>
                 <div className='base-style'>
-                    <SearchBar changeSearch={changeSearch} loading={state.loading} />
+                    <SearchBar changeSearch={changeSearch} loading={loading} />
                 </div>
                 <Row>
                     <Col span={24}>
@@ -308,7 +308,7 @@ const SearchTableView = props => {
                                 onChange={handleChange}
                                 bordered
                                 loading={loading}
-                                pagination={state.pagination}
+                                pagination={pageI}
                                 scroll={{ scrollToFirstRowOnChange: true, x: 1000 }}
                             />
                         </div>
