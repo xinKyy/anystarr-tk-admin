@@ -222,6 +222,7 @@ const SearchTableView = props => {
         pageSize,
         searchName
       })).then(resp=>{
+        console.log(resp.data.result, "USER DATA")
         if(resp.data.result.records){
           setState({
             ...state,
