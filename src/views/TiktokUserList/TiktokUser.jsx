@@ -233,13 +233,13 @@ const SearchTableView = props => {
         getList(1, 20)
     }, [])
 
-    const getList = (page, pageSize, searchName) => {
+    const getList = (page, pageSize, searchValue) => {
         setLoading(true)
         APIGetTikTokUserList(
             JSON.stringify({
                 page,
                 pageSize,
-                searchName
+                ...searchValue
             })
         )
             .then(resp => {
@@ -270,21 +270,23 @@ const SearchTableView = props => {
             })
             .finally(() => {
                 setLoading(false)
-                getList(pageI.current, pageI.pageSize, state.search.searchName)
+                getList(pageI.current, pageI.pageSize, state.search)
             })
     }
 
     const handleChange = pagination => {
         console.log(pagination, 'currentcurrentcurrent')
-        getList(pagination.current, pagination.pageSize, state.search.searchName)
+        getList(pagination.current, pagination.pageSize, state.search)
     }
 
     const changeSearch = search => {
         setState({
             ...state,
-            ...search
+            search: {
+              ...search
+            }
         })
-        getList(1, state.pagination.pageSize, search.searchName)
+        getList(1, state.pagination.pageSize, search)
     }
 
     return (

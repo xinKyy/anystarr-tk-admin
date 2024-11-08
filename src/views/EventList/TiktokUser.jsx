@@ -56,27 +56,30 @@ const getLocalTime = nS => {
 
 const columns = () => [
   {
-    title: 'Nick Name',
-    dataIndex: 'sendEmail',
-    key: 'sendEmail',
+    title: 'UserID',
+    dataIndex: 'userId',
+    key: 'userId',
     align: 'center'
   },
   {
     title: 'Event Name',
-    dataIndex: 'email',
-    key: 'email',
+    dataIndex: 'eventType',
+    key: 'eventType',
     align: 'center'
   },
   {
     title: 'Target object',
-    dataIndex: 'invitation_code',
-    key: 'invitation_code',
-    align: 'center'
+    dataIndex: 'eventValue',
+    key: 'eventValue',
+    align: 'center',
+    render:(v, item)=>{
+      return <div>{item.eventType === "TYPE_SEARCH" ? item.searchValue : v}</div>
+    }
   },
   {
     title: 'Create time',
-    dataIndex: 'create_time',
-    key: 'create_time',
+    dataIndex: 'clickTime',
+    key: 'clickTime',
     align: 'center'
     // render: (text, item) => <span>{getLocalTime(item.create_time)}</span>
   }
@@ -107,7 +110,10 @@ const SearchBar = props => {
       onFinish={onFinish}>
       <Row gutter={24}>
         <Col span={8}>
-          <Form.Item name='searchName' label='Nick Name'>
+          <Form.Item name='userId' label='User ID'>
+            <Input />
+          </Form.Item>
+          <Form.Item name='eventType' label='Event Type'>
             <Input />
           </Form.Item>
         </Col>
@@ -202,13 +208,13 @@ const SearchTableView = props => {
     getList(1, 20)
   }, [])
 
-  const getList = (page, pageSize, searchName) => {
+  const getList = (page, pageSize, search) => {
     setLoading(true)
     APIGetEventList(
       JSON.stringify({
         page,
         pageSize,
-        searchName
+        ...search
       })
     )
       .then(resp => {
@@ -238,27 +244,27 @@ const SearchTableView = props => {
       })
       .finally(() => {
         setLoading(false)
-        getList(pageI.current, pageI.pageSize, state.search.searchName)
+        getList(pageI.current, pageI.pageSize, state.search)
       })
   }
 
   const handleChange = pagination => {
     console.log(pagination, 'currentcurrentcurrent')
-    getList(pagination.current, pagination.pageSize, state.search.searchName)
+    getList(pagination.current, pagination.pageSize, state.search)
   }
 
   const changeSearch = search => {
     setState({
       ...state,
-      ...search
+      search: search
     })
-    getList(1, state.pagination.pageSize, search.searchName)
+    getList(1, state.pagination.pageSize, search)
   }
 
   return (
     <Layout className='animated fadeIn'>
       <div className='web-bread-c'>
-        <WebBreadcrumb arr={['User List']} />
+        <WebBreadcrumb arr={['Event List']} />
         <h3>User List</h3>
         <img src={Aset} className='aset' />
       </div>
