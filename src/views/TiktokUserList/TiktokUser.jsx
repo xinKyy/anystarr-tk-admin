@@ -1,20 +1,20 @@
 import React, { Component, useEffect, useState } from 'react'
 import WebBreadcrumb from '@/components/WebBreadcrumb'
 import {
-    Layout,
-    Row,
-    Col,
-    Tag,
-    Table,
-    Button,
-    Modal,
-    Input,
-    Form,
-    DatePicker,
-    Select,
-    message,
-    Upload,
-    Badge
+  Layout,
+  Row,
+  Col,
+  Tag,
+  Table,
+  Button,
+  Modal,
+  Input,
+  Form,
+  DatePicker,
+  Select,
+  message,
+  Upload,
+  Badge, Image
 } from 'antd'
 import '@/style/view-style/table.less'
 import {
@@ -56,21 +56,24 @@ const getLocalTime = nS => {
 const columns = () => [
     {
         title: 'Avatar',
-        dataIndex: 'id',
-        key: 'id',
+        dataIndex: 'avatarUrl',
+        key: 'avatarUrl',
         align: 'center',
-        render: (text, item) => <span className='table-id'>{text}</span>
+        render: (avatarUrl, item) => <Image style={{
+          width:"60px",
+          height:"60px"
+        }} src={avatarUrl}></Image>
     },
     {
         title: 'Nick Name',
-        dataIndex: 'sendEmail',
-        key: 'sendEmail',
+        dataIndex: 'displayName',
+        key: 'displayName',
         align: 'center'
     },
     {
-        title: 'Email',
-        dataIndex: 'email',
-        key: 'email',
+        title: 'Profile DeepLink',
+        dataIndex: 'profileDeepLink',
+        key: 'profileDeepLink',
         align: 'center'
     },
     {
@@ -81,22 +84,25 @@ const columns = () => [
     },
     {
         title: 'Registered Time',
-        dataIndex: 'status',
-        key: 'status',
+        dataIndex: 'createTime',
+        key: 'createTime',
         align: 'center',
     },
     {
         title: 'Followers',
-        dataIndex: 'create_time',
-        key: 'create_time',
+        dataIndex: 'followerCount',
+        key: 'followerCount',
         align: 'center'
         // render: (text, item) => <span>{getLocalTime(item.create_time)}</span>
     },
     {
         title: 'Action',
-        dataIndex: 'id1',
-        key: 'id1',
+        dataIndex: '',
+        key: '',
         align: 'center',
+        render:()=>{
+          return <Button>Delete</Button>
+        }
     }
 ]
 
@@ -196,6 +202,7 @@ const DetailModal = ({ visible, onCreate, onCancel }) => {
 }
 
 const SearchTableView = props => {
+    const [dataSource, setDataSource] = useState([]);
     const [state, setState] = useState({
         list: [],
         pagination: {
@@ -223,12 +230,13 @@ const SearchTableView = props => {
         searchName
       })).then(resp=>{
         console.log(resp.data.result, "USER DATA")
-        if(resp.data.result.records){
+        if(resp.data.result){
+          setDataSource(resp.data.result.records)
           setState({
             ...state,
-            list:resp.data.result.records,
             pagination: {
-              ...state.pagination,
+              current: 1,
+              pageSize: 20,
               total: resp.data.result.total
             }
           })
@@ -271,7 +279,7 @@ const SearchTableView = props => {
                             <Table
                                 columns={columns()}
                                 rowKey={record => record.key}
-                                dataSource={state.list}
+                                dataSource={dataSource}
                                 onChange={handleChange}
                                 bordered
                                 loading={state.loading}
