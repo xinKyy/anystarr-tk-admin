@@ -1,0 +1,49 @@
+name: Deploy
+
+on: # 在master分支上提交代码执行
+  push:
+    branches: [master]
+
+jobs: # 作业
+  build-and-deploy: # 作业名称
+    runs-on: ubuntu-latest # 运行的环境
+
+    steps: #步骤
+      - name: Checkout # 步骤名
+        uses: actions/checkout@master # 所使用的action
+
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v2.1.0
+        with:
+          node-version: '12.x'
+
+      - name: Install npm dependencies
+        run: npm install
+      
+      - name: Lint-fix
+        run: npm run lint-fix --if-present  
+
+
+
+      - name: Run build task
+        run: CI=false  npm run build --if-present  
+
+      - name: Deploy to Server Dev
+        uses: fifsky/ssh-action@master
+        with:
+          command: |
+            cd taolingadmin-fe
+            git pull
+          host: ${{ secrets.HOST }}
+          user: root
+          key: ${{ secrets.PRIVATE_KEY}}
+          args: "-tt"
+       
+      - name: Deploy to Server
+        uses: hengkx/ssh-deploy@v1.0.1
+        with: # 以下为参数
+          USERNAME: ${{ secrets.DEPLOY_USER }} # 为了用户信息安全对敏感数据可以在secrets中配置请看下图
+          PASSWORD: ${{ secrets.DEPLOY_PASSWORD }}
+          HOST: ${{ secrets.DEPLOY_HOST }}
+          SOURCE: 'build'
+          TARGET: '/root/taolingadmin-fe/build'    

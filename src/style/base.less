@@ -1,0 +1,587 @@
+@charset "utf-8";
+
+/*!
+ * @名称：base.css
+ * @功能：1、重设浏览器默认样式
+ *       2、设置通用原子类
+ */
+/* 防止用户自定义背景颜色对网页的影响，添加让用户可以自定义字体 */
+html {
+    background: white;
+    color: #999;
+    font-size: 10px;
+}
+
+/* 内外边距通常让各个浏览器样式的表现位置不同 */
+body,
+div,
+dl,
+dt,
+dd,
+ul,
+ol,
+li,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+pre,
+code,
+form,
+fieldset,
+legend,
+input,
+textarea,
+p,
+blockquote,
+th,
+td,
+hr,
+button,
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+    margin: 0;
+    padding: 0;
+}
+
+/* 要注意表单元素并不继承父级 font 的问题 */
+body,
+button,
+input,
+select,
+textarea {
+    font: 14px \5b8b\4f53, arial, sans-serif;
+}
+
+input,
+select,
+textarea {
+    font-size: 100%;
+}
+
+/* 去掉 table cell 的边距并让其边重合 */
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+/* ie bug：th 不继承 text-align */
+th {
+    text-align: inherit;
+}
+
+/* 去除默认边框 */
+fieldset,
+img {
+    border: none;
+}
+
+/* ie6 7 8(q) bug 显示为行内表现 */
+iframe {
+    display: block;
+}
+
+/* 去掉 firefox 下此元素的边框 */
+abbr,
+acronym {
+    border: none;
+    font-variant: normal;
+}
+
+/* 一致的 del 样式 */
+del {
+    text-decoration: line-through;
+}
+
+address,
+caption,
+cite,
+code,
+dfn,
+em,
+th,
+var {
+    font-style: normal;
+    font-weight: 500;
+}
+
+/* 去掉列表前的标识，li 会继承 */
+ol,
+ul {
+    list-style: none;
+}
+
+/* 对齐是排版最重要的因素，别让什么都居中 */
+caption,
+th {
+    text-align: left;
+}
+
+/* 来自yahoo，让标题都自定义，适应多个系统应用 */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-size: 100%;
+    font-weight: 500;
+}
+
+h1 {
+    font-size: 28px;
+}
+
+h2 {
+    font-size: 24px;
+}
+
+h3 {
+    font-size: 20px;
+}
+
+q:before,
+q:after {
+    content: '';
+}
+
+/* 统一上标和下标 */
+sub,
+sup {
+    font-size: 75%;
+    line-height: 0;
+    position: relative;
+    vertical-align: baseline;
+}
+
+sup {
+    top: -0.5em;
+}
+
+sub {
+    bottom: -0.25em;
+}
+
+// /* 让链接在 hover 状态下显示下划线 */
+// a:hover {
+//     text-decoration: underline;
+// }
+
+/* 默认不显示下划线，保持页面简洁 */
+ins,
+a {
+    text-decoration: none;
+}
+
+/* 去除 ie6 & ie7 焦点点状线 */
+a:focus,
+*:focus {
+    outline: none;
+}
+
+/* 清除浮动 */
+.clearfix:before,
+.clearfix:after {
+    content: '';
+    display: block;
+}
+
+.clearfix:after {
+    clear: both;
+    overflow: hidden;
+}
+
+.clearfix {
+    zoom: 1;
+    /* for ie6 & ie7 */
+}
+
+.clear {
+    clear: both;
+    display: block;
+    font-size: 0;
+    height: 0;
+    line-height: 0;
+    overflow: hidden;
+}
+
+/* 设置显示和隐藏，通常用来与 js 配合 */
+.hide {
+    display: none;
+}
+
+.block {
+    display: block;
+}
+
+/* 设置浮动，减少浮动带来的 bug */
+.fl,
+.fr {
+    display: inline;
+}
+
+.fl {
+    float: left;
+}
+
+.fr {
+    float: right;
+}
+
+.mr15 {
+    margin-right: 15px;
+}
+
+.flex {
+    display: flex;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+.mr15 .info {
+}
+
+.info .user {
+}
+.ml-10 {
+    margin-left: 10px;
+}
+.mr-10 {
+    margin-right: 10px;
+}
+.mb-10 {
+    margin-bottom: 20px;
+}
+
+.info .grade {
+    line-height: 12px;
+    display: flex;
+    white-space: nowrap;
+}
+
+.grade .ant-progress-line {
+    margin-top: -6px;
+}
+
+.num-precent .ant-input-number::after {
+    content: '%';
+    position: absolute;
+    right: -25px;
+    width: 10px;
+    height: 10px;
+    top: 50%;
+    margin-top: -7px;
+}
+
+.file-item {
+    padding: 8px;
+    border: 1px solid #d9d9d9;
+    margin-top: 5px;
+    border-radius: 5px;
+
+    .item-body {
+        height: 100%;
+        position: relative;
+        display: flex;
+        align-items: center;
+
+        .item-img {
+            height: 100%;
+            max-height: 50px;
+        }
+        .ant-input-group-wrapper {
+            width: 200px;
+            margin-left: 40px;
+        }
+
+        .delete-icon {
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+    }
+}
+
+.task-review-content {
+    display: flex;
+}
+
+.hide-item {
+    visibility: hidden;
+}
+.ant-upload-list {
+    display: none;
+}
+.ant-table-cell a {
+    display: block;
+}
+#root .ant-layout-sider {
+    // background-color: rgb(6, 30, 51);
+    background: #3e4963;
+}
+#root .ant-layout {
+    background: rgb(232, 237, 247);
+}
+
+#root .ant-table-thead > tr > th {
+    background-color: #f8faff;
+    color: #5f6e8e;
+}
+#root .ant-table-tbody > tr > td {
+    border-right: 1px solid #edf3fd;
+    border-bottom: 1px solid #edf3fd;
+}
+#root .ant-table.ant-table-bordered > .ant-table-container {
+    border: 1px solid #edf3fd;
+}
+#root .ant-menu.ant-menu-dark,
+.ant-menu-dark .ant-menu-sub,
+.ant-menu.ant-menu-dark .ant-menu-sub {
+    background: #3e4963;
+}
+#root .ant-menu-dark.ant-menu-dark:not(.ant-menu-horizontal) .ant-menu-item-selected {
+    background: #252b3e;
+}
+#root .ant-form-item {
+    margin-bottom: 12px;
+}
+#root .ant-form-item-label {
+    padding: 0 0 2px;
+}
+#root .ant-form-item-label > label {
+    color: #5f6e8e;
+}
+#root .ant-form-item-label > label::after {
+    content: '';
+}
+#root .ant-layout-footer {
+    background: #e8edf7;
+}
+
+#root .ant-input,
+#root .ant-select-single .ant-select-selector,
+#root .ant-select-multiple .ant-select-selector,
+#root .ant-picker {
+    // border: 1px solid #e5ecfc;
+    // border-color: #e5ecfc;
+}
+
+#root .ant-input[disabled] {
+    background-color: #eef3fc;
+}
+
+.aside .ant-menu-item a {
+    // color: #6a8094;
+}
+.aside .ant-menu {
+    // color: #6a8094;
+}
+aside .ant-menu-submenu-vertical > .ant-menu-submenu-title .ant-menu-submenu-arrow::before,
+.ant-menu-submenu-vertical-left > .ant-menu-submenu-title .ant-menu-submenu-arrow::before,
+.ant-menu-submenu-vertical-right > .ant-menu-submenu-title .ant-menu-submenu-arrow::before,
+.ant-menu-submenu-inline > .ant-menu-submenu-title .ant-menu-submenu-arrow::before,
+.ant-menu-submenu-vertical > .ant-menu-submenu-title .ant-menu-submenu-arrow::after,
+.ant-menu-submenu-vertical-left > .ant-menu-submenu-title .ant-menu-submenu-arrow::after,
+.ant-menu-submenu-vertical-right > .ant-menu-submenu-title .ant-menu-submenu-arrow::after,
+.ant-menu-submenu-inline > .ant-menu-submenu-title .ant-menu-submenu-arrow::after {
+    background-image: none !important;
+    background-color: #6a8094;
+}
+.ant-table-tbody > tr > td {
+    max-width: 500px;
+    font-weight: normal;
+}
+
+.campaign-detail .file-list {
+}
+
+.campaign-detail .file-upload-progress {
+    width: 400px;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.file-list .ant-select-selector {
+    min-width: 200px;
+}
+.preview-wrapper {
+    position: absolute;
+    right: 100px;
+    top: 200px;
+    width: 190px;
+}
+
+.preview-wrapper .bg-img {
+    width: 100%;
+}
+
+.preview-wrapper .relative-wr {
+    position: relative;
+    overflow: hidden;
+}
+.relative-wr .top-banner-img {
+    width: 100%;
+    position: absolute;
+    top: 50px;
+    z-index: 99;
+    right: 0;
+    max-height: 80px;
+}
+.relative-wr .abcomo-selection-img {
+    width: 100%;
+    position: absolute;
+    top: 48px;
+    z-index: 99;
+    right: 0;
+    max-height: 80px;
+}
+
+.relative-wr .reward-task-img {
+    width: 100%;
+    position: absolute;
+    top: 138px;
+    z-index: 99;
+    right: 0;
+    max-height: 80px;
+}
+.relative-wr .reward-task-img-left {
+    width: 50%;
+    position: absolute;
+    top: 138px;
+    z-index: 99;
+    right: left;
+    max-height: 80px;
+}
+.relative-wr .reward-task-img-right {
+    width: 50%;
+    position: absolute;
+    top: 138px;
+    z-index: 99;
+    right: 0;
+    max-height: 80px;
+}
+
+#root .ant-menu.ant-menu-dark,
+.ant-menu-dark .ant-menu-sub,
+.ant-menu.ant-menu-dark .ant-menu-sub {
+    // background-color: rgb(6, 30, 51);
+}
+#root .ant-menu-dark .ant-menu-inline.ant-menu-sub {
+    // background-color: rgb(6, 30, 51);
+    background: #374056;
+}
+#root .ant-menu-dark .ant-menu-item:hover {
+    // background-color: rgb(39, 57, 73);
+}
+#root .ant-btn {
+    font-weight: normal;
+    border-radius: 5px;
+    border: 1px solid #e5ecfc;
+}
+
+#root .ant-progress-inner {
+    background-color: #eef3fc;
+}
+
+#root ::-webkit-input-placeholder {
+    color: #9eacc4 !important;
+}
+#root .ant-form-item-has-error .ant-input:focus,
+.ant-form-item-has-error .ant-input-affix-wrapper:focus,
+.ant-form-item-has-error .ant-input-focused,
+.ant-form-item-has-error .ant-input-affix-wrapper-focused {
+    box-shadow: none;
+}
+
+#root .ant-input,
+#root .ant-select-selector,
+#root .ant-picker {
+    font-weight: normal;
+    border-radius: 5px;
+    border: 1px solid #e5ecfc;
+    color: #333;
+}
+#root .login .ant-input {
+    border: unset;
+}
+
+#root .ant-btn:hover,
+#root .ant-input:hover,
+#root .ant-select-selector:hover,
+#root .ant-picker:hover {
+    border-color: #348fe4;
+}
+
+#root .ant-btn:focus,
+#root .ant-input:focus,
+#root .ant-select-selector:focus,
+#root .ant-picker:focus {
+    border-color: #348fe4;
+}
+
+#root .ant-table-cell {
+    min-width: 95px;
+}
+#root .ant-tag-green {
+    color: rgb(34, 215, 187);
+    background: rgba(34, 215, 187, 0.1);
+    border-color: rgb(34, 215, 187);
+}
+#root .ant-tag-yellow {
+    color: rgb(255, 221, 91);
+    background: rgba(255, 221, 91, 0.1);
+    border-color: rgb(255, 221, 91);
+}
+#root .ant-table-content .ant-badge-status-dot {
+    width: 8px;
+    height: 8px;
+}
+
+#root .ant-table-row {
+    transition: all 0.25s ease;
+}
+#root .ant-table-row:hover {
+    transform: translateY(-6px);
+    z-index: 999;
+}
+#root .ant-table-tbody > tr.ant-table-row:hover > td {
+    background: #dcf4ff;
+}
+
+.campaign-detail-new .ant-card-bordered {
+    border-radius: 7px;
+    position: relative;
+}
+
+.campaign-detail-new .ant-card-actions {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+.campaign-detail-new .ant-card-body {
+    padding-bottom: 40px;
+}
+.sample-detail .ant-image-img {
+    max-height: 100px;
+    max-width: 100px;
+}
+.ant-row .task-flow-flex-item {
+    display: flex;
+    align-items: flex-end;
+    margin-bottom: 10px;
+}
