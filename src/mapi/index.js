@@ -2,7 +2,7 @@ import host from '../tools/host'
 import kolhost from '../tools/kolhost'
 import request from '../tools/request'
 import { param } from 'jquery'
-import {newHost} from "../tools/new_host";
+import { newHost } from '../tools/new_host'
 console.log('tytyoo', `${host}/web/promotion_news/find_promotion_newss.json`)
 
 //获取列表
@@ -982,13 +982,13 @@ export const APITranslateCampaign = params => {
 }
 
 export const APIGetTikTokUserList = params => {
-  return request.postJson(`${newHost}/admin/api/v1/user/list`, params)
+    return request.postJson(`${newHost}/admin/api/v1/user/list`, params)
 }
 
 export const APIDeleteByUid = params => {
-  return request.get(`${newHost}/admin/api/v1/user/delete`, params)
+    return request.get(`${newHost}/admin/api/v1/user/delete`, params)
 }
 
 export const APIGetEventList = params => {
-  return request.post(`${newHost}/admin/api/v1/usageHistory/list`, params)
+    return request.postJson(`${newHost}/admin/api/v1/usageHistory/list`, params)
 }
