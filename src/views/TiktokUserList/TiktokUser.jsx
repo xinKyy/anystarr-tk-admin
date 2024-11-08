@@ -1,20 +1,21 @@
 import React, { Component, useEffect, useState } from 'react'
 import WebBreadcrumb from '@/components/WebBreadcrumb'
 import {
-  Layout,
-  Row,
-  Col,
-  Tag,
-  Table,
-  Button,
-  Modal,
-  Input,
-  Form,
-  DatePicker,
-  Select,
-  message,
-  Upload,
-  Badge, Image
+    Layout,
+    Row,
+    Col,
+    Tag,
+    Table,
+    Button,
+    Modal,
+    Input,
+    Form,
+    DatePicker,
+    Select,
+    message,
+    Upload,
+    Badge,
+    Image
 } from 'antd'
 import '@/style/view-style/table.less'
 import {
@@ -31,7 +32,7 @@ import { UploadOutlined, FormOutlined, CloudDownloadOutlined, SearchOutlined } f
 import webhost from '@/tools/webhost.js'
 import Aset from '@/imgs/aset1.png'
 import { getYearMonthDayTimeNew, getCleanedParams } from '@/tools/help.js'
-import {APIDeleteByUid, APIGetTikTokUserList} from "../../mapi";
+import { APIDeleteByUid, APIGetTikTokUserList } from '../../mapi'
 const { MonthPicker, RangePicker } = DatePicker
 const { Option } = Select
 
@@ -53,16 +54,21 @@ const getLocalTime = nS => {
     return new Date(Date.parse(nS)).toLocaleString().replace(/:\d{1,2}$/, ' ')
 }
 
-const columns = (deleteById) => [
+const columns = deleteById => [
     {
         title: 'Avatar',
         dataIndex: 'avatarUrl',
         key: 'avatarUrl',
         align: 'center',
-        render: (avatarUrl, item) => avatarUrl ? <Image style={{
-          width:"60px",
-          height:"60px"
-        }} src={avatarUrl}></Image> : null
+        render: (avatarUrl, item) =>
+            avatarUrl ? (
+                <Image
+                    style={{
+                        width: '60px',
+                        height: '60px'
+                    }}
+                    src={avatarUrl}></Image>
+            ) : null
     },
     {
         title: 'Nick Name',
@@ -75,15 +81,19 @@ const columns = (deleteById) => [
         dataIndex: 'profileDeepLink',
         key: 'profileDeepLink',
         align: 'center',
-        render:(v, item)=>{
-          return v ? <a href={v} target={"_blank"}>Profile</a> : null
+        render: (v, item) => {
+            return v ? (
+                <a href={v} target={'_blank'}>
+                    Profile
+                </a>
+            ) : null
         }
     },
     {
         title: 'Registered Time',
         dataIndex: 'createTime',
         key: 'createTime',
-        align: 'center',
+        align: 'center'
     },
     {
         title: 'Followers',
@@ -97,8 +107,8 @@ const columns = (deleteById) => [
         dataIndex: 'id',
         key: 'id',
         align: 'center',
-        render:(v, item)=>{
-          return <Button onClick={()=>deleteById(v)}>Delete</Button>
+        render: (v, item) => {
+            return <Button onClick={() => deleteById(v)}>Delete</Button>
         }
     }
 ]
@@ -199,7 +209,7 @@ const DetailModal = ({ visible, onCreate, onCancel }) => {
 }
 
 const SearchTableView = props => {
-    const [dataSource, setDataSource] = useState([]);
+    const [dataSource, setDataSource] = useState([])
     const [state, setState] = useState({
         list: [],
         search: {},
@@ -211,55 +221,61 @@ const SearchTableView = props => {
         userId: '',
         downloadUserUrl: ''
     })
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(false)
 
-    const [pageI, setPageI] = useState( {
-      current: 1,
-      pageSize: 20,
-      total:0,
+    const [pageI, setPageI] = useState({
+        current: 1,
+        pageSize: 20,
+        total: 0
     })
 
     useEffect(() => {
-      getList(1, 20);
+        getList(1, 20)
     }, [])
 
     const getList = (page, pageSize, searchName) => {
-      setLoading(true);
-      APIGetTikTokUserList(JSON.stringify({
-        page,
-        pageSize,
-        searchName
-      })).then(resp=>{
-        console.log(resp.data.result, "USER DATA")
-        if(resp.data.result){
-          setDataSource(resp.data.result.records)
-          setPageI({
-            page:resp.data.result.current,
-            pageSize: 20,
-            total:resp.data.result.total
-          })
-        }
-      }).finally(()=>{
-        setLoading(false)
-      })
+        setLoading(true)
+        APIGetTikTokUserList(
+            JSON.stringify({
+                page,
+                pageSize,
+                searchName
+            })
+        )
+            .then(resp => {
+                console.log(resp.data.result, 'USER DATA')
+                if (resp.data.result) {
+                    setDataSource(resp.data.result.records)
+                    setPageI({
+                        page: resp.data.result.current,
+                        pageSize: 20,
+                        total: resp.data.result.total
+                    })
+                }
+            })
+            .finally(() => {
+                setLoading(false)
+            })
     }
 
-    const deleteById = (uid) =>{
-      setLoading(true);
-      APIDeleteByUid({
-        uid:uid,
-      }).then(resp=>{
-        if(resp.data.result){
-          message.success("Delete success!")
-        }
-      }).finally(()=>{
-        setLoading(false);
-        getList(pageI.current, pageI.pageSize, state.search.searchName)
-      })
+    const deleteById = uid => {
+        setLoading(true)
+        APIDeleteByUid({
+            uid: uid
+        })
+            .then(resp => {
+                if (resp.data.result) {
+                    message.success('Delete success!')
+                }
+            })
+            .finally(() => {
+                setLoading(false)
+                getList(pageI.current, pageI.pageSize, state.search.searchName)
+            })
     }
 
     const handleChange = pagination => {
-      console.log(pagination, "currentcurrentcurrent")
+        console.log(pagination, 'currentcurrentcurrent')
         getList(pagination.current, pagination.pageSize, state.search.searchName)
     }
 
@@ -291,7 +307,7 @@ const SearchTableView = props => {
                                 dataSource={dataSource}
                                 onChange={handleChange}
                                 bordered
-                                loading={state.loading}
+                                loading={loading}
                                 pagination={state.pagination}
                                 scroll={{ scrollToFirstRowOnChange: true, x: 1000 }}
                             />
