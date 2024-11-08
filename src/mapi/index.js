@@ -985,6 +985,10 @@ export const APIGetTikTokUserList = params => {
   return request.postJson(`${newHost}/admin/api/v1/user/list`, params)
 }
 
+export const APIDeleteByUid = params => {
+  return request.get(`${newHost}/admin/api/v1/user/delete`, params)
+}
+
 export const APIGetEventList = params => {
   return request.post(`${newHost}/admin/api/v1/usageHistory/list`, params)
 }

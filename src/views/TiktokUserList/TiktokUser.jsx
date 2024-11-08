@@ -31,7 +31,7 @@ import { UploadOutlined, FormOutlined, CloudDownloadOutlined, SearchOutlined } f
 import webhost from '@/tools/webhost.js'
 import Aset from '@/imgs/aset1.png'
 import { getYearMonthDayTimeNew, getCleanedParams } from '@/tools/help.js'
-import {APIGetTikTokUserList} from "../../mapi";
+import {APIDeleteByUid, APIGetTikTokUserList} from "../../mapi";
 const { MonthPicker, RangePicker } = DatePicker
 const { Option } = Select
 
@@ -53,16 +53,16 @@ const getLocalTime = nS => {
     return new Date(Date.parse(nS)).toLocaleString().replace(/:\d{1,2}$/, ' ')
 }
 
-const columns = () => [
+const columns = (deleteById) => [
     {
         title: 'Avatar',
         dataIndex: 'avatarUrl',
         key: 'avatarUrl',
         align: 'center',
-        render: (avatarUrl, item) => <Image style={{
+        render: (avatarUrl, item) => avatarUrl ? <Image style={{
           width:"60px",
           height:"60px"
-        }} src={avatarUrl}></Image>
+        }} src={avatarUrl}></Image> : null
     },
     {
         title: 'Nick Name',
@@ -74,13 +74,10 @@ const columns = () => [
         title: 'Profile DeepLink',
         dataIndex: 'profileDeepLink',
         key: 'profileDeepLink',
-        align: 'center'
-    },
-    {
-        title: 'Register date',
-        dataIndex: 'invitation_code',
-        key: 'invitation_code',
-        align: 'center'
+        align: 'center',
+        render:(v, item)=>{
+          return v ? <a href={v} target={"_blank"}>Profile</a> : null
+        }
     },
     {
         title: 'Registered Time',
@@ -97,11 +94,11 @@ const columns = () => [
     },
     {
         title: 'Action',
-        dataIndex: '',
-        key: '',
+        dataIndex: 'id',
+        key: 'id',
         align: 'center',
-        render:()=>{
-          return <Button>Delete</Button>
+        render:(v, item)=>{
+          return <Button onClick={()=>deleteById(v)}>Delete</Button>
         }
     }
 ]
@@ -205,10 +202,6 @@ const SearchTableView = props => {
     const [dataSource, setDataSource] = useState([]);
     const [state, setState] = useState({
         list: [],
-        pagination: {
-            current: 1,
-            pageSize: 20
-        },
         search: {},
         loading: true,
         visible: false,
@@ -218,12 +211,20 @@ const SearchTableView = props => {
         userId: '',
         downloadUserUrl: ''
     })
+    const [loading, setLoading] = useState(false);
+
+    const [pageI, setPageI] = useState( {
+      current: 1,
+      pageSize: 20,
+      total:0,
+    })
 
     useEffect(() => {
       getList(1, 20);
     }, [])
 
     const getList = (page, pageSize, searchName) => {
+      setLoading(true);
       APIGetTikTokUserList(JSON.stringify({
         page,
         pageSize,
@@ -232,20 +233,28 @@ const SearchTableView = props => {
         console.log(resp.data.result, "USER DATA")
         if(resp.data.result){
           setDataSource(resp.data.result.records)
-          setState({
-            ...state,
-            pagination: {
-              current: 1,
-              pageSize: 20,
-              total: resp.data.result.total
-            }
+          setPageI({
+            page:resp.data.result.current,
+            pageSize: 20,
+            total:resp.data.result.total
           })
         }
       }).finally(()=>{
-        setState({
-          ...state,
-          loading:false
-        })
+        setLoading(false)
+      })
+    }
+
+    const deleteById = (uid) =>{
+      setLoading(true);
+      APIDeleteByUid({
+        uid:uid,
+      }).then(resp=>{
+        if(resp.data.result){
+          message.success("Delete success!")
+        }
+      }).finally(()=>{
+        setLoading(false);
+        getList(pageI.current, pageI.pageSize, state.search.searchName)
       })
     }
 
@@ -277,7 +286,7 @@ const SearchTableView = props => {
                     <Col span={24}>
                         <div className='base-style'>
                             <Table
-                                columns={columns()}
+                                columns={columns(deleteById)}
                                 rowKey={record => record.key}
                                 dataSource={dataSource}
                                 onChange={handleChange}
