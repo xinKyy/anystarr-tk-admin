@@ -41,7 +41,7 @@ const DefaultLayout = props => {
         console.log('menus', menus)
         return menus
             .filter(item => {
-                return !item.au || (item.au && !(userIfo.id == '10008' || userIfo.id == '10009'))
+                return !item.au || (item.au && !(userIfo?.id == '10008' || userIfo?.id == '10009'))
             })
             .map(item => {
                 item = Object.assign({}, item)
