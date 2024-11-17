@@ -11,6 +11,7 @@
         "braft-editor": "^2.3.8",
         "craco-alias": "^2.1.1",
         "craco-antd": "^1.14.1",
+        "crypto-js": "^4.2.0",
         "echarts": "^4.4.0",
         "eslint-plugin-react-hooks": "^2.3.0",
         "jquery": "^3.5.1",

@@ -2,6 +2,7 @@ import $ from 'jquery'
 import { dealResult } from './dealResult'
 // import Headers from './headers';
 import { message } from 'antd'
+import { md5 } from './sign'
 
 function ajaxRequestJson(methods, url, params) {
     return new Promise((resolve, reject) => {
@@ -11,13 +12,13 @@ function ajaxRequestJson(methods, url, params) {
             data: params,
             dataType: 'JSON',
             contentType: 'application/json',
-            beforeSend: function (request) {
-             try{
-               const user = JSON.parse(localStorage.getItem("userInfo"))
-               request.setRequestHeader('admin-token', user.nickname);
-             } catch (e){
-               console.log(e, "token error")
-             }
+            beforeSend: function(request) {
+                try {
+                    const user = JSON.parse(localStorage.getItem('userInfo'))
+                    request.setRequestHeader('admin-token', user.nickname)
+                } catch (e) {
+                    console.log(e, 'token error')
+                }
             },
             xhrFields: {
                 withCredentials: true
@@ -48,12 +49,12 @@ function ajaxRequest(methods, url, params) {
             dataType: 'JSON',
             // contentType:'application/json',
             beforeSend: function(request) {
-              try{
-                const user = JSON.parse(localStorage.getItem("userInfo"))
-                request.setRequestHeader('admin-token', user.nickname);
-              } catch (e){
-                console.log(e, "token error")
-              }
+                try {
+                    const user = JSON.parse(localStorage.getItem('userInfo'))
+                    request.setRequestHeader('admin-token', md5(user.nickname))
+                } catch (e) {
+                    console.log(e, 'token error')
+                }
             },
             xhrFields: {
                 withCredentials: true
