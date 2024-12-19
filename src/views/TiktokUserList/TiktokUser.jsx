@@ -54,6 +54,42 @@ const getLocalTime = nS => {
     return new Date(Date.parse(nS)).toLocaleString().replace(/:\d{1,2}$/, ' ')
 }
 
+function formatToBeijingTime(utcString) {
+    try {
+        // 检查传入是否为有效的字符串
+        if (typeof utcString !== 'string' || !utcString.trim()) {
+            throw new Error('Invalid input: Expected a non-empty string.')
+        }
+
+        // 尝试解析日期
+        const utcDate = new Date(utcString)
+        if (isNaN(utcDate.getTime())) {
+            throw new Error('Invalid input: Unable to parse date string.')
+        }
+
+        // 格式化为北京时间
+        const options = {
+            timeZone: 'Asia/Shanghai',
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit',
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit'
+        }
+
+        const formatter = new Intl.DateTimeFormat('zh-CN', options)
+        const formattedDate = formatter.format(utcDate)
+
+        // 转换为 YYYY-MM-DD hh:mm:ss 格式
+        const [date, time] = formattedDate.split(' ')
+        return `${date.replace(/\//g, '-')} ${time}`
+    } catch (error) {
+        console.error('Error formatting date:', error.message)
+        return null // 返回 null 表示无法格式化
+    }
+} // null
+
 const columns = deleteById => [
     {
         title: 'Avatar',
@@ -93,7 +129,10 @@ const columns = deleteById => [
         title: 'Registered Time',
         dataIndex: 'createTime',
         key: 'createTime',
-        align: 'center'
+        align: 'center',
+        render: (v, item) => {
+            return formatToBeijingTime(v)
+        }
     },
     {
         title: 'Followers',
