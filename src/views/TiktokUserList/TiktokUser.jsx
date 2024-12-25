@@ -367,7 +367,9 @@ const SearchTableView = props => {
                                 <div>总用户数：{all}</div>
                                 <div style={{ width: '20px' }}></div>
                                 <div>今日新增：{todayAdd}</div>
+                                <div style={{ width: '20px' }}></div>
                                 <div>总加橱：{allAddKitchen}</div>
+                                <div style={{ width: '20px' }}></div>
                                 <div>新增加厨：{todayAddKitchen}</div>
                             </div>
 
