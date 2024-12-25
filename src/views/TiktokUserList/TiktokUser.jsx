@@ -263,6 +263,8 @@ const SearchTableView = props => {
     const [loading, setLoading] = useState(false)
     const [all, setAll] = useState(0)
     const [todayAdd, setTodayAdd] = useState(0)
+    const [allAddKitchen, setAllAddKitchen] = useState(0)
+    const [todayAddKitchen, setTodayAddKitchen] = useState(0)
 
     const [pageI, setPageI] = useState({
         current: 1,
@@ -305,6 +307,8 @@ const SearchTableView = props => {
             if (resp.data.result) {
                 setAll(resp.data.result.all)
                 setTodayAdd(resp.data.result.today)
+                setAllAddKitchen(resp.data.result.allAddKitchen)
+                setTodayAddKitchen(resp.data.result.todayAddKitchen)
             }
         })
     }
@@ -363,6 +367,8 @@ const SearchTableView = props => {
                                 <div>总用户数：{all}</div>
                                 <div style={{ width: '20px' }}></div>
                                 <div>今日新增：{todayAdd}</div>
+                                <div>总加橱：{allAddKitchen}</div>
+                                <div>新增加厨：{todayAddKitchen}</div>
                             </div>
 
                             <Table
