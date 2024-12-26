@@ -33,6 +33,7 @@ import webhost from '@/tools/webhost.js'
 import Aset from '@/imgs/aset1.png'
 import { getYearMonthDayTimeNew, getCleanedParams } from '@/tools/help.js'
 import { APIDeleteByUid, APIGetTikTokUserList, APIGetTikTokUserSumInfo } from '../../mapi'
+import { newHost } from '../../tools/new_host'
 const { MonthPicker, RangePicker } = DatePicker
 const { Option } = Select
 
@@ -362,15 +363,32 @@ const SearchTableView = props => {
                                 style={{
                                     display: 'flex',
                                     fontSize: '20px',
-                                    marginBottom: '10px'
+                                    marginBottom: '10px',
+                                    justifyContent: 'space-between'
                                 }}>
-                                <div>总用户数：{all}</div>
-                                <div style={{ width: '20px' }}></div>
-                                <div>今日新增：{todayAdd}</div>
-                                <div style={{ width: '20px' }}></div>
-                                <div>总加橱：{allAddKitchen}</div>
-                                <div style={{ width: '20px' }}></div>
-                                <div>新增加厨：{todayAddKitchen}</div>
+                                <div
+                                    style={{
+                                        display: 'flex'
+                                    }}>
+                                    <div>总用户数：{all}</div>
+                                    <div style={{ width: '20px' }}></div>
+                                    <div>昨日新增：{todayAdd}</div>
+                                    <div style={{ width: '20px' }}></div>
+                                    <div>总加橱：{allAddKitchen}</div>
+                                    <div style={{ width: '20px' }}></div>
+                                    <div>昨日加橱：{todayAddKitchen}</div>
+                                </div>
+                                <div
+                                    style={{
+                                        display: 'flex'
+                                    }}>
+                                    <a href={`${newHost}/admin/api/v1/user/downLoadYesterday`}>
+                                        <Button>导出新增用户名单</Button>
+                                    </a>
+                                    <a href={`${newHost}/admin/api/v1/user/downLoadAll`}>
+                                        <Button>导出全部用户名单</Button>
+                                    </a>
+                                </div>
                             </div>
 
                             <Table

@@ -53,12 +53,12 @@ const DefaultLayout = props => {
     }
 
     const [menu] = useState(prevState => {
-        if (!Cookies.get('crm_user_info')) {
-            props.history.push('/login')
-            return []
-        } else {
-            return getMenu(menus)
-        }
+        // if (!Cookies.get('crm_user_info')) {
+        //     props.history.push('/login')
+        //     return []
+        // } else {
+        //     return getMenu(menus)
+        // }
         return getMenu(menus)
     })
 
