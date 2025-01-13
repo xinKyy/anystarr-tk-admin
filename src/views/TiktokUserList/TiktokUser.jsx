@@ -382,6 +382,12 @@ const SearchTableView = props => {
                                     style={{
                                         display: 'flex'
                                     }}>
+                                    <a href={`${newHost}/admin/api/v1/user/downLoadKitchenYesterday`}>
+                                        <Button>导出新增用户加橱</Button>
+                                    </a>
+                                    <a href={`${newHost}/admin/api/v1/user/downLoadKitchenAll`}>
+                                        <Button>导出全部用户加橱</Button>
+                                    </a>
                                     <a href={`${newHost}/admin/api/v1/user/downLoadYesterday`}>
                                         <Button>导出新增用户名单</Button>
                                     </a>
