@@ -267,6 +267,8 @@ const SearchTableView = props => {
     const [allAddKitchen, setAllAddKitchen] = useState(0)
     const [todayAddKitchen, setTodayAddKitchen] = useState(0)
 
+    const [result, setResult] = useState()
+
     const [pageI, setPageI] = useState({
         current: 1,
         pageSize: 20,
@@ -310,6 +312,7 @@ const SearchTableView = props => {
                 setTodayAdd(resp.data.result.today)
                 setAllAddKitchen(resp.data.result.allAddKitchen)
                 setTodayAddKitchen(resp.data.result.todayAddKitchen)
+                setResult(resp.data.result)
             }
         })
     }
@@ -366,34 +369,86 @@ const SearchTableView = props => {
                                     marginBottom: '10px',
                                     justifyContent: 'space-between'
                                 }}>
-                                <div
-                                    style={{
-                                        display: 'flex'
-                                    }}>
-                                    <div>总用户数：{all}</div>
-                                    <div style={{ width: '20px' }}></div>
-                                    <div>昨日新增：{todayAdd}</div>
-                                    <div style={{ width: '20px' }}></div>
-                                    <div>总加橱：{allAddKitchen}</div>
-                                    <div style={{ width: '20px' }}></div>
-                                    <div>昨日加橱：{todayAddKitchen}</div>
+                                <div>
+                                    <div
+                                        style={{
+                                            display: 'flex'
+                                        }}>
+                                        <div>总用户数：{all}</div>
+                                        <div style={{ width: '20px' }}></div>
+                                        <div>昨日新增：{todayAdd}</div>
+                                        <div style={{ width: '20px' }}></div>
+                                        <div>总二次授权：{allAddKitchen}</div>
+                                        <div style={{ width: '20px' }}></div>
+                                        <div>昨日二次授权：{todayAddKitchen}</div>
+                                    </div>
+                                    <div
+                                        style={{
+                                            display: 'flex'
+                                        }}>
+                                        <div>总加橱：{allAddKitchen}</div>
+                                        <div style={{ width: '20px' }}></div>
+                                        <div>昨日加橱：{todayAddKitchen}</div>
+                                    </div>
+                                    <div
+                                        style={{
+                                            display: 'flex'
+                                        }}>
+                                        <div>总申样：{result?.allSample}</div>
+                                        <div style={{ width: '20px' }}></div>
+                                        <div>昨日申样：{result?.todaySample}</div>
+                                    </div>
                                 </div>
-                                <div
-                                    style={{
-                                        display: 'flex'
-                                    }}>
-                                    <a href={`${newHost}/admin/api/v1/user/downLoadKitchenYesterday`}>
-                                        <Button>导出新增用户加橱</Button>
-                                    </a>
-                                    <a href={`${newHost}/admin/api/v1/user/downLoadKitchenAll`}>
-                                        <Button>导出全部用户加橱</Button>
-                                    </a>
-                                    <a href={`${newHost}/admin/api/v1/user/downLoadYesterday`}>
-                                        <Button>导出新增用户名单</Button>
-                                    </a>
-                                    <a href={`${newHost}/admin/api/v1/user/downLoadAll`}>
-                                        <Button>导出全部用户名单</Button>
-                                    </a>
+
+                                <div>
+                                    <div
+                                        style={{
+                                            display: 'flex',
+                                            flexWrap: 'wrap'
+                                        }}>
+                                        <a href={`${newHost}/admin/api/v1/user/downLoadYesterday`}>
+                                            <Button>导出新增用户名单</Button>
+                                        </a>
+                                        <a href={`${newHost}/admin/api/v1/user/downLoadAll`}>
+                                            <Button>导出全部用户名单</Button>
+                                        </a>
+                                        <a href={`${newHost}/admin/api/v1/user/downLoadKitchenYesterday`}>
+                                            <Button>导出新增授权用户</Button>
+                                        </a>
+                                        <a href={`${newHost}/admin/api/v1/user/downLoadKitchenAll`}>
+                                            <Button>导出全部授权用户</Button>
+                                        </a>
+                                    </div>
+
+                                    <div
+                                        style={{
+                                            display: 'flex'
+                                        }}>
+                                        <div style={{ flex: 1 }}></div>
+                                        <a href={`${newHost}/admin/api/v1/user/downLoadKitchenYesterday`}>
+                                            <Button>导出新增用户加橱</Button>
+                                        </a>
+                                        <a href={`${newHost}/admin/api/v1/user/downLoadKitchenAll`}>
+                                            <Button>导出全部用户加橱</Button>
+                                        </a>
+                                        <a href={`${newHost}/admin/api/v1/user/downShowCaseProduct`}>
+                                            <Button>导出橱窗商品</Button>
+                                        </a>
+                                    </div>
+
+                                    <div
+                                        style={{
+                                            display: 'flex',
+                                            flexWrap: 'wrap'
+                                        }}>
+                                        <div style={{ flex: 1 }}></div>
+                                        <a href={`${newHost}/admin/api/v1/user/downLoadSampleYesterday`}>
+                                            <Button>导出新增申样</Button>
+                                        </a>
+                                        <a href={`${newHost}/admin/api/v1/user/downLoadSampleAll`}>
+                                            <Button>导出全部申样</Button>
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
 
