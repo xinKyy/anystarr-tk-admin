@@ -365,7 +365,7 @@ const SearchTableView = props => {
                             <div
                                 style={{
                                     display: 'flex',
-                                    fontSize: '20px',
+                                    fontSize: '16px',
                                     marginBottom: '10px',
                                     justifyContent: 'space-between'
                                 }}>
@@ -378,9 +378,9 @@ const SearchTableView = props => {
                                         <div style={{ width: '20px' }}></div>
                                         <div>昨日新增：{todayAdd}</div>
                                         <div style={{ width: '20px' }}></div>
-                                        <div>总二次授权：{allAddKitchen}</div>
+                                        <div>总二次授权：{result?.v2All ?? '-'}</div>
                                         <div style={{ width: '20px' }}></div>
-                                        <div>昨日二次授权：{todayAddKitchen}</div>
+                                        <div>昨日二次授权：{result?.v2Today ?? '-'}</div>
                                     </div>
                                     <div
                                         style={{
@@ -394,13 +394,16 @@ const SearchTableView = props => {
                                         style={{
                                             display: 'flex'
                                         }}>
-                                        <div>总申样：{result?.allSample}</div>
+                                        <div>总申样：{result?.allSample ?? '-'}</div>
                                         <div style={{ width: '20px' }}></div>
-                                        <div>昨日申样：{result?.todaySample}</div>
+                                        <div>昨日申样：{result?.todaySample ?? '-'}</div>
                                     </div>
                                 </div>
 
-                                <div>
+                                <div
+                                    style={{
+                                        fontSize: '14px'
+                                    }}>
                                     <div
                                         style={{
                                             display: 'flex',
@@ -412,10 +415,10 @@ const SearchTableView = props => {
                                         <a href={`${newHost}/admin/api/v1/user/downLoadAll`}>
                                             <Button>导出全部用户名单</Button>
                                         </a>
-                                        <a href={`${newHost}/admin/api/v1/user/downLoadKitchenYesterday`}>
+                                        <a href={`${newHost}/admin/api/v1/user/downLoadV2Yesterday`}>
                                             <Button>导出新增授权用户</Button>
                                         </a>
-                                        <a href={`${newHost}/admin/api/v1/user/downLoadKitchenAll`}>
+                                        <a href={`${newHost}/admin/api/v1/user/downLoadV2All`}>
                                             <Button>导出全部授权用户</Button>
                                         </a>
                                     </div>
