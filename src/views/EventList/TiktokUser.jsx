@@ -33,6 +33,7 @@ import webhost from '@/tools/webhost.js'
 import Aset from '@/imgs/aset1.png'
 import { getYearMonthDayTimeNew, getCleanedParams } from '@/tools/help.js'
 import { APIDeleteByUid, APIGetEventList, APIGetTikTokUserList } from '../../mapi'
+import { newHost } from '../../tools/new_host'
 const { MonthPicker, RangePicker } = DatePicker
 const { Option } = Select
 
@@ -276,6 +277,9 @@ const SearchTableView = props => {
                 <Row>
                     <Col span={24}>
                         <div className='base-style'>
+                            <a href={`${newHost}/admin/api/v1/user/downFeedBack`}>
+                                <Button>下载Feedback</Button>
+                            </a>
                             <Table
                                 columns={columns()}
                                 rowKey={record => record.key}
