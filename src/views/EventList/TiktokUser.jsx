@@ -277,9 +277,18 @@ const SearchTableView = props => {
                 <Row>
                     <Col span={24}>
                         <div className='base-style'>
-                            <a href={`${newHost}/admin/api/v1/user/downFeedBack`}>
-                                <Button>下载Feedback</Button>
-                            </a>
+                            <div
+                                style={{
+                                    display: 'flex',
+                                    justContent: 'space-between'
+                                }}>
+                                <a href={`${newHost}/admin/api/v1/user/downFeedBack`}>
+                                    <Button>下载Feedback</Button>
+                                </a>
+                                <a href={`${newHost}/admin/api/v1/user/downCapErrorLog`}>
+                                    <Button>下载Cap异常记录</Button>
+                                </a>
+                            </div>
                             <Table
                                 columns={columns()}
                                 rowKey={record => record.key}
