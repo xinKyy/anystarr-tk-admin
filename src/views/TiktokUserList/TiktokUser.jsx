@@ -421,6 +421,9 @@ const SearchTableView = props => {
                                         <a href={`${newHost}/admin/api/v1/user/downLoadV2All`}>
                                             <Button>导出全部授权用户</Button>
                                         </a>
+                                        <a href={`${newHost}/admin/api/v1/user/downLoadOfflineSampleAll`}>
+                                            <Button>导出申样记录</Button>
+                                        </a>
                                     </div>
 
                                     <div
