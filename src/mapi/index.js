@@ -996,3 +996,15 @@ export const APIDeleteByUid = params => {
 export const APIGetEventList = params => {
     return request.postJson(`${newHost}/admin/api/v1/usageHistory/list`, params)
 }
+
+export const APIGetPromotionSectionList = params => {
+    return request.get(`${newHost}/admin/api/v1/promotion/section/list`, params)
+}
+
+export const APIPromotionSectionCreate = params => {
+    return request.postJson(`${newHost}/admin/api/v1/promotion/section/create`, params)
+}
+
+export const APIPromotionSectionEdit = params => {
+    return request.postJson(`${newHost}/admin/api/v1/promotion/section/edit`, params)
+}
