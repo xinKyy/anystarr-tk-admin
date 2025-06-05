@@ -7,6 +7,7 @@ import Permission from '../views/Permissions'
 const Index = AsyncLoadable(() => import(/* webpackChunkName: 'index' */ '@/views/Index'))
 const TiktokUser = AsyncLoadable(() => import(/* webpackChunkName: 'index' */ '@/views/TiktokUserList'))
 const TiktokUserEvent = AsyncLoadable(() => import(/* webpackChunkName: 'index' */ '@/views/EventList'))
+const TiktokProductCollect = AsyncLoadable(() => import('@/views/ProductsCollection'))
 
 //修改密码
 const ModifyPwd = AsyncLoadable(() => import('@/views/ModifyPwd'))
@@ -115,6 +116,13 @@ const routes = [
         exact: false,
         name: 'Tiktok',
         component: TiktokUserEvent,
+        auth: [0]
+    },
+    {
+        path: '/tiktok/product',
+        exact: false,
+        name: 'Tiktok',
+        component: TiktokProductCollect,
         auth: [0]
     },
 

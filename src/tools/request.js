@@ -23,7 +23,6 @@ function ajaxRequestJson(methods, url, params) {
             xhrFields: {
                 withCredentials: true
             },
-            crossDomain: true,
             success: resp => {
                 let flog = dealResult(resp)
                 if (!flog) {
@@ -47,7 +46,6 @@ function ajaxRequest(methods, url, params) {
             url: url,
             data: params,
             dataType: 'JSON',
-            // contentType:'application/json',
             beforeSend: function(request) {
                 try {
                     const user = JSON.parse(localStorage.getItem('userInfo'))
@@ -59,13 +57,12 @@ function ajaxRequest(methods, url, params) {
             xhrFields: {
                 withCredentials: true
             },
-            crossDomain: true,
             success: resp => {
                 let flog = dealResult(resp)
-                if (!flog) {
-                    message.error(resp.message)
-                    return
-                }
+                // if (!flog) {
+                //   message.error(resp.message)
+                //   return
+                // }
                 resolve(resp)
             },
             error: err => {
@@ -165,7 +162,8 @@ function ajaxRequestFile(methods, url, params) {
             url: url,
             data: params,
             xhrFields: {
-                responseType: 'arraybuffer'
+                responseType: 'arraybuffer',
+                crossDomain: true
             },
             beforeSend: function(request) {
                 request.setRequestHeader('Authorization', token)
@@ -215,7 +213,8 @@ function ajaxRequestDownload(methods, url, params) {
             url: url,
             data: params,
             xhrFields: {
-                responseType: 'arraybuffer'
+                responseType: 'arraybuffer',
+                crossDomain: true
             },
             // beforeSend: function(request) {
             //     request.setRequestHeader('Authorization', token)

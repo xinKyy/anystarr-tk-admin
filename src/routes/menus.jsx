@@ -8,7 +8,8 @@ import {
     PaperClipOutlined,
     BarsOutlined,
     UserOutlined,
-    FundViewOutlined
+    FundViewOutlined,
+    ShoppingCartOutlined
 } from '@ant-design/icons'
 
 const menus = [
@@ -24,7 +25,8 @@ const menus = [
         icon: <HomeOutlined />,
         subs: [
             { title: 'User management', key: '/tiktok/userList', icon: <UserOutlined /> },
-            { title: 'Event management', key: '/tiktok/event', icon: <AppstoreOutlined /> }
+            { title: 'Event management', key: '/tiktok/event', icon: <AppstoreOutlined /> },
+            { title: 'Product Collection', key: '/tiktok/product', icon: <ShoppingCartOutlined /> }
         ]
     },
     {
