@@ -1,0 +1,1 @@
+(this["webpackJsonpreact-admin"]=this["webpackJsonpreact-admin"]||[]).push([[11],{1232:function(t,e,n){t.exports=n.p+"static/media/404.785f34c4.jpg"},1796:function(t,e,n){"use strict";n.r(e);var a=n(0),c=n.n(a),i=n(1232),r=n.n(i),s=function(){return c.a.createElement("div",{style:{textAlign:"center",marginTop:"5rem"}},c.a.createElement("img",{src:r.a,alt:""}))};e.default=s}}]);
